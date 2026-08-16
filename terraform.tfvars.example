@@ -1,0 +1,39 @@
+aws_region   = "ap-south-1"
+project_name = "visitor-counter"
+
+vpc_cidr             = "10.0.0.0/16"
+azs                  = ["ap-south-1a", "ap-south-1b"]
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.11.0/24", "10.0.12.0/24"]
+single_nat_gateway   = true # cheaper for learning/testing; set false for production HA
+
+# --- ECS ---
+# Replace with your actual ECR image URI after you push it (step in the guide)
+container_image     = "REPLACE_WITH_YOUR_ECR_IMAGE_URI"
+container_port       = 3000
+instance_type        = "t3.micro"
+asg_min_size          = 1
+asg_max_size          = 2
+asg_desired_capacity  = 1
+task_cpu              = 256
+task_memory           = 512
+desired_task_count    = 1
+
+container_environment = {}
+
+# --- ALB ---
+health_check_path = "/api/health"
+certificate_arn   = "" # leave blank for HTTP-only while testing
+
+# --- RDS ---
+db_name                = "visitors"
+db_username             = "dbadmin"
+db_instance_class       = "db.t3.micro"
+db_allocated_storage    = 20
+db_multi_az             = false # set true for production HA
+db_deletion_protection  = false # set true once this is a real deployment you don't want to lose
+
+common_tags = {
+  ManagedBy   = "terraform"
+  Environment = "learning"
+}
