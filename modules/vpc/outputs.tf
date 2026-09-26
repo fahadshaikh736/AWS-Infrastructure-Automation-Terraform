@@ -21,3 +21,6 @@ output "nat_gateway_ids" {
 output "azs" {
   value = var.azs
 }
+output "secure_subnet_ids" {
+  value = aws_subnet.secure[*].id
+}

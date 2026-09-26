@@ -51,6 +51,7 @@ module "rds" {
   allocated_storage        = var.db_allocated_storage
   multi_az                 = var.db_multi_az
   deletion_protection      = var.db_deletion_protection
+  backup_retention_period = var.db_backup_retention_period
   tags                     = local.tags
 }
 

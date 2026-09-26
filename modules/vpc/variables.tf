@@ -12,7 +12,7 @@ variable "vpc_cidr" {
 variable "azs" {
   description = "Availability zones to deploy into"
   type        = list(string)
-  default     = ["us-west-1a", "us-west-1b"]
+  default     = ["ap-south-1a", "ap-south-1b"]
 }
 
 variable "public_subnet_cidrs" {
@@ -25,6 +25,12 @@ variable "private_subnet_cidrs" {
   description = "CIDR blocks for private subnets, one per AZ"
   type        = list(string)
   default     = ["10.0.11.0/24", "10.0.12.0/24"]
+}
+
+variable "secure_subnet_cidrs" {
+  description = "CIDR blocks for secure subnets (RDS), one per AZ"
+  type        = list(string)
+  default     = ["10.0.21.0/24", "10.0.22.0/24"]
 }
 
 variable "single_nat_gateway" {

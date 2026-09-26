@@ -12,14 +12,13 @@ terraform {
     }
   }
 
-  # Recommended: configure a remote backend for team use.
-  # backend "s3" {
-  #   bucket         = "your-terraform-state-bucket"
-  #   key            = "ecs-app/terraform.tfstate"
-  #   region         = "us-west-1"
-  #   dynamodb_table = "terraform-locks"
-  #   encrypt        = true
-  # }
+  backend "s3" {
+    bucket         = "fahad-terraform-state-797260140066"
+    key            = "ecs-app/terraform.tfstate"
+    region         = "ap-south-1"
+    dynamodb_table = "terraform-state-lock"
+    encrypt        = true
+  }
 }
 
 provider "aws" {

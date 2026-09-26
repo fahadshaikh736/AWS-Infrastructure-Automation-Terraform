@@ -11,7 +11,7 @@ resource "aws_lb" "this" {
 }
 
 resource "aws_lb_target_group" "this" {
-  name        = "${var.project_name}-tg"
+  name_prefix = substr("${var.project_name}", 0, 6)
   port        = var.container_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
@@ -27,6 +27,9 @@ resource "aws_lb_target_group" "this" {
     matcher             = "200-299"
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
   tags = var.tags
 }
 

@@ -179,3 +179,34 @@ resource "aws_flow_log" "this" {
   traffic_type         = "ALL"
   vpc_id               = aws_vpc.this.id
 }
+###########################
+# Secure Subnets (RDS, fully isolated)
+###########################
+resource "aws_subnet" "secure" {
+  count             = length(var.secure_subnet_cidrs)
+  vpc_id            = aws_vpc.this.id
+  cidr_block        = var.secure_subnet_cidrs[count.index]
+  availability_zone = var.azs[count.index]
+
+  tags = merge(var.tags, {
+    Name = "${var.project_name}-secure-${var.azs[count.index]}"
+    Tier = "secure"
+  })
+}
+
+###########################
+# Route Table - Secure (no route to IGW or NAT, intentionally isolated)
+###########################
+resource "aws_route_table" "secure" {
+  vpc_id = aws_vpc.this.id
+
+  tags = merge(var.tags, {
+    Name = "${var.project_name}-secure-rt"
+  })
+}
+
+resource "aws_route_table_association" "secure" {
+  count          = length(aws_subnet.secure)
+  subnet_id      = aws_subnet.secure[count.index].id
+  route_table_id = aws_route_table.secure.id
+}

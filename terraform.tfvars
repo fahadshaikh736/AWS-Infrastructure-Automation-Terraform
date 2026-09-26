@@ -9,7 +9,7 @@ single_nat_gateway   = true # cheaper for learning/testing; set false for produc
 
 # --- ECS ---
 # Replace with your actual ECR image URI after you push it (step in the guide)
-container_image     = "350120155492.dkr.ecr.ap-south-1.amazonaws.com/visitor-counter-backend:latest"
+container_image     = "797260140066.dkr.ecr.ap-south-1.amazonaws.com/visitor-counter-backend:latest"
 container_port       = 3000
 instance_type        = "t3.micro"
 asg_min_size          = 1
@@ -32,6 +32,7 @@ db_instance_class       = "db.t3.micro"
 db_allocated_storage    = 20
 db_multi_az             = false # set true for production HA
 db_deletion_protection  = false # set true once this is a real deployment you don't want to lose
+db_backup_retention_period = 1
 
 common_tags = {
   ManagedBy   = "terraform"

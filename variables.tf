@@ -139,3 +139,8 @@ variable "common_tags" {
     ManagedBy = "terraform"
   }
 }
+variable "db_backup_retention_period" {
+  description = "Number of days to retain automated backups"
+  type        = number
+  default     = 1
+}
