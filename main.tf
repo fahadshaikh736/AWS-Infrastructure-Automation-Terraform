@@ -63,6 +63,7 @@ module "ecs" {
   private_subnet_ids   = module.vpc.private_subnet_ids
   ecs_sg_id            = module.security.ecs_sg_id
   target_group_arn     = module.alb.target_group_arn
+  alb_arn_suffix       = module.alb.alb_arn_suffix
   container_port       = var.container_port
   container_image      = var.container_image
   instance_type        = var.instance_type
